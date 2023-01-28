@@ -44,7 +44,7 @@ class BuilderProcessor : AbstractProcessor() {
     override fun process(annotations: MutableSet<out TypeElement>, env: RoundEnvironment): Boolean {
         // 所有用@Builder标注的集合返回
         env.getElementsAnnotatedWith(Builder::class.java).forEach {
-            Logger.warn(it, it.simpleName.toString())
+            Logger.warn(it, "BuilderProcessor 自己打印的警告${it.simpleName}")
         }
         return true
     }
