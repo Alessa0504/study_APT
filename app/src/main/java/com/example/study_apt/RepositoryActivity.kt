@@ -30,6 +30,10 @@ class RepositoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityRepositoryBinding.inflate(layoutInflater)
         setContentView(binding. root)
+
+        //可以读取
+//        name = intent.getStringExtra(RepositoryActivityBuilder.REQUIRED_NAME).toString()
+
         binding.nameView.text = name
         binding.ownerView.text = owner
         binding.urlView.text = url

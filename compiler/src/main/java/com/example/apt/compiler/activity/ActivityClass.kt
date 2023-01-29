@@ -8,7 +8,7 @@ import javax.lang.model.element.Modifier
 import javax.lang.model.element.TypeElement
 
 /**
- * @Description: 标注的Activity
+ * @Description: 传入标注的Activity和字段fields等
  * @author zouji
  * @date 2023/1/29
  */
@@ -18,8 +18,10 @@ class ActivityClass(private val typeElement: TypeElement) {   // Type用来标�
     val fields = TreeSet<Field>()
 
     val isAbstract = typeElement.modifiers.contains(Modifier.ABSTRACT)  //修饰符是否包含ABSTRACT
-    val isKotlin =
-        typeElement.getAnnotation(Metadata::class.java) != null //是否是kt类 -根据kapt stub生成的java类有@kotlin.Metadata修饰
+
+    val builder = ActivityClassBuilder(this)
+
+    val isKotlin = typeElement.getAnnotation(Metadata::class.java) != null //是否是kt类 -根据kapt stub生成的java类有@kotlin.Metadata修饰
 
     companion object {
         // 反射获取

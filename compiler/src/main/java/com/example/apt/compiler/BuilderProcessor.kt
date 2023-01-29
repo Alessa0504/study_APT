@@ -19,7 +19,7 @@ import javax.lang.model.element.Element
 import javax.lang.model.element.TypeElement
 
 /**
- * @Description:
+ * @Description: 注解处理器
  * @author zouji
  * @date 2023/1/28
  */
@@ -49,6 +49,7 @@ class BuilderProcessor : AbstractProcessor() {
     }
 
     override fun process(annotations: MutableSet<out TypeElement>, env: RoundEnvironment): Boolean {
+        // 定义map，把注解标注的类和字段都存入
         val activityClasses = HashMap<Element, ActivityClass>()
         // 处理类 -所有用@Builder标注的集合返回
         env.getElementsAnnotatedWith(Builder::class.java).filter {
@@ -89,7 +90,7 @@ class BuilderProcessor : AbstractProcessor() {
             }
 
         activityClasses.values.forEach {
-            Logger.warn(it.toString())
+            it.builder.build(AptContext.filer)  //生成xxActivityBuilder.java
         }
         return true
     }
