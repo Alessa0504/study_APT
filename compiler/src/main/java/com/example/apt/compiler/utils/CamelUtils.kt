@@ -1,4 +1,4 @@
-package com.example.apt.compiler.activity.utils
+package com.example.apt.compiler.utils
 
 /**
  * 大写字母后添加下划线

@@ -1,7 +1,7 @@
 package com.example.apt.compiler.activity.method
 
 import com.example.apt.compiler.activity.ActivityClass
-import com.example.apt.compiler.activity.utils.camelToUnderline
+import com.example.apt.compiler.utils.camelToUnderline
 import com.squareup.javapoet.FieldSpec
 import com.squareup.javapoet.TypeSpec
 import javax.lang.model.element.Modifier

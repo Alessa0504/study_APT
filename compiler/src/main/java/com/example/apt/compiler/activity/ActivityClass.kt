@@ -12,7 +12,7 @@ import javax.lang.model.element.TypeElement
  * @author zouji
  * @date 2023/1/29
  */
-class ActivityClass(private val typeElement: TypeElement) {   // Type用来标注类，标注的类 类型是TypeElement
+class ActivityClass(val typeElement: TypeElement) {   // Type用来标注类，标注的类 类型是TypeElement
     val simpleName = typeElement.simpleName()
     val packageName = typeElement.packageName()
     val fields = TreeSet<Field>()

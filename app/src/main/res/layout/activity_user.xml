@@ -31,4 +31,10 @@
         android:layout_height="wrap_content"
         android:text="company"/>
 
+    <TextView
+        android:id="@+id/workPlaceView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="workPlace"/>
+
 </androidx.appcompat.widget.LinearLayoutCompat>

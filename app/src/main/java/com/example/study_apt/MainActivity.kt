@@ -20,7 +20,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.goToUserActivity.setOnClickListener {
-
+            // 可以调用build后生成的start方法
+            UserActivityBuilder.start(this, 28, "jillian", "Kotlin", "developer", "Shanghai")
         }
     }
 

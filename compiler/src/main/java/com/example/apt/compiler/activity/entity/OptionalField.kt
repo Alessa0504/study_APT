@@ -25,7 +25,7 @@ class OptionalField(symbol: Symbol.VarSymbol) : Field(symbol) {
                 optional.intValue
             TypeKind.FLOAT, TypeKind.DOUBLE -> defaultValue = optional.floatValue
             else -> if (symbol.type == String::class.java.asTypeMirror()) {
-                defaultValue = """"${optional.stringValue}"""
+                defaultValue = """"${optional.stringValue}""""
             }
         }
     }
