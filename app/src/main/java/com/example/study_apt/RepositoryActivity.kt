@@ -23,7 +23,7 @@ class RepositoryActivity : AppCompatActivity() {
     @Optional(stringValue = "")
     lateinit var url: String
 
-    @Optional(intValue = 119)
+    @Optional(longValue = 119L)
     var createAt: Long = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {

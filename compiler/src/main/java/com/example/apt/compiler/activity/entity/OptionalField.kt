@@ -20,13 +20,19 @@ class OptionalField(symbol: Symbol.VarSymbol) : Field(symbol) {
 
     init {
         val optional = symbol.getAnnotation(Optional::class.java)
-        when (symbol.type.kind) {   // 根据标注的属性是什么类型设置注解默认值
-            TypeKind.BOOLEAN -> defaultValue = optional.booleanValue
-            TypeKind.BYTE, TypeKind.SHORT, TypeKind.INT, TypeKind.LONG, TypeKind.CHAR -> defaultValue =
-                optional.intValue
-            TypeKind.FLOAT, TypeKind.DOUBLE -> defaultValue = optional.floatValue
+        defaultValue = when (symbol.type.kind) {   // 根据标注的属性是什么类型设置注解默认值
+            TypeKind.BOOLEAN ->  optional.booleanValue
+            TypeKind.CHAR -> "'${optional.charValue}'"
+            TypeKind.BYTE -> "(byte) ${optional.byteValue}"   //在这里强转
+            TypeKind.SHORT -> "(short) ${optional.shortValue}"
+            TypeKind.INT -> optional.intValue
+            TypeKind.LONG -> "${optional.longValue}L"
+            TypeKind.FLOAT -> "${optional.floatValue}f"
+            TypeKind.DOUBLE -> optional.doubleValue
             else -> if (symbol.type == String::class.java.asTypeMirror()) {
-                defaultValue = """"${optional.stringValue}""""
+                """"${optional.stringValue}""""  //注意字面量的引号
+            } else {
+                null
             }
         }
     }
