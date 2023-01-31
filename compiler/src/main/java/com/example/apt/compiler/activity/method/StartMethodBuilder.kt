@@ -11,7 +11,7 @@ import com.squareup.javapoet.TypeSpec
 import javax.lang.model.element.Modifier
 
 /**
- * @Description:
+ * @Description: 生成java的start方法
  * @author zouji
  * @date 2023/1/29
  */

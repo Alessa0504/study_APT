@@ -21,7 +21,7 @@ class ActivityClass(val typeElement: TypeElement) {   // Type用来标注类，�
 
     val builder = ActivityClassBuilder(this)
 
-    val isKotlin = typeElement.getAnnotation(Metadata::class.java) != null //是否是kt类 -根据kapt stub生成的java类有@kotlin.Metadata修饰
+    val isKotlin = typeElement.getAnnotation(Metadata::class.java) != null //是否是kt类 -kt根据kapt stub生成的java类有@kotlin.Metadata修饰
 
     companion object {
         // 反射获取

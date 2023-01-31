@@ -2,6 +2,7 @@
 package com.example.apt.compiler.activity.entity
 
 import com.bennyhuo.aptutils.types.asJavaTypeName
+import com.bennyhuo.aptutils.types.asKotlinTypeName
 import com.sun.tools.javac.code.Symbol
 
 /**
@@ -20,6 +21,8 @@ open class Field(private val symbol: Symbol.VarSymbol) : Comparable<Field> {  //
     val isPrimitive = symbol.type.isPrimitive   //是否基本类型
 
     fun asJavaTypeName() = symbol.type.asJavaTypeName()
+
+    open fun asKotlinTypeName() = symbol.type.asKotlinTypeName()
 
     override fun compareTo(other: Field): Int {   //比较
         return name.compareTo(other.name)

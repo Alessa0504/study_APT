@@ -1,13 +1,12 @@
 package com.example.apt.compiler.activity
 
-import com.example.apt.compiler.activity.method.ConstantBuilder
-import com.example.apt.compiler.activity.method.InjectMethodBuilder
-import com.example.apt.compiler.activity.method.SaveStateMethodBuilder
-import com.example.apt.compiler.activity.method.StartMethodBuilder
+import com.example.apt.compiler.activity.method.*
 import com.squareup.javapoet.JavaFile
 import com.squareup.javapoet.TypeSpec
+import com.squareup.kotlinpoet.FileSpec
 import javax.annotation.processing.Filer
 import javax.lang.model.element.Modifier
+import javax.tools.StandardLocation
 
 /**
  * @Description: 生成文件
@@ -30,6 +29,8 @@ class ActivityClassBuilder(private val activityClass: ActivityClass) {
      */
     fun build(filer: Filer) {  // Filer用于创建文件
         if (activityClass.isAbstract) return   //抽象类
+
+        // java类
         val typeBuilder = TypeSpec.classBuilder(activityClass.simpleName + POSIX)
             .addModifiers(Modifier.PUBLIC, Modifier.FINAL)  //生成xxActivityBuilder类，可访问且不能被继承
 
@@ -37,6 +38,13 @@ class ActivityClassBuilder(private val activityClass: ActivityClass) {
         StartMethodBuilder(activityClass).build(typeBuilder)     //build生成方法
         SaveStateMethodBuilder(activityClass).build(typeBuilder)
         InjectMethodBuilder(activityClass).build(typeBuilder)
+
+        // kt类
+        if (activityClass.isKotlin) {
+            val fileBuilder = FileSpec.builder(activityClass.packageName, activityClass.simpleName + POSIX)
+            StartKotlinFunBuilder(activityClass).build(fileBuilder)
+            writeKotlinToFile(filer, fileBuilder.build())
+        }
 
         writeJavaToFile(filer, typeBuilder.build())
     }
@@ -50,6 +58,28 @@ class ActivityClassBuilder(private val activityClass: ActivityClass) {
         try {
             val file = JavaFile.builder(activityClass.packageName, typeSpec).build()  //生成java代码
             file.writeTo(filer)   //写入文件
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    /**
+     * 生成kotlin文件
+     * @param filer
+     * @param fileSpec
+     */
+    private fun writeKotlinToFile(filer: Filer, fileSpec: FileSpec) {
+        try {
+            // 创建空白文件: .kt文件用createResource，否则其他方法是生成.java文件
+            val fileObject = filer.createResource(
+                StandardLocation.SOURCE_OUTPUT,
+                activityClass.packageName,
+                fileSpec.name + ".kt"
+            )
+            // 写入文件
+            fileObject.openWriter().also {
+                fileSpec.writeTo(it)
+            }.close()
         } catch (e: Exception) {
             e.printStackTrace()
         }

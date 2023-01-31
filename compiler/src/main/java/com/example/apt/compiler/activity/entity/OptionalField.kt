@@ -3,6 +3,7 @@ package com.example.apt.compiler.activity.entity
 
 import com.bennyhuo.aptutils.types.asTypeMirror
 import com.example.apt.annotations.Optional
+import com.squareup.kotlinpoet.TypeName
 import com.sun.tools.javac.code.Symbol
 import javax.lang.model.type.TypeKind
 
@@ -28,6 +29,10 @@ class OptionalField(symbol: Symbol.VarSymbol) : Field(symbol) {
                 defaultValue = """"${optional.stringValue}""""
             }
         }
+    }
+
+    override fun asKotlinTypeName(): TypeName {
+        return super.asKotlinTypeName().asNullable()  //由于父类调用的asKotlinTypeName() 没有null类型对应，这里覆写转为可空?类型
     }
 
     override fun compareTo(other: Field): Int {

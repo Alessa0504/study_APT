@@ -17,7 +17,11 @@ class MainActivity : AppCompatActivity() {
 //                  .putExtra(RepositoryActivityBuilder.REQUIRED_OWNER, "JetBrains")
 //                .putExtra(RepositoryActivityBuilder.OPTIONAL_CREATE_AT, 10086L)
 //                .putExtra(RepositoryActivityBuilder.OPTIONAL_URL, "https://www.jetbrains.com.cn/"))
-            RepositoryActivityBuilder.start(this, "Kotlin", "JetBrains", 10086L, "https://www.jetbrains.com.cn/")
+
+            // 调用build后生成的java start方法
+//            RepositoryActivityBuilder.start(this, "Kotlin", "JetBrains", 10086L, "https://www.jetbrains.com.cn/")
+            // 调用build后生成的kt扩展方法
+            startRepositoryActivity("Kotlin", "JetBrains", url = "https://www.jetbrains.com.cn/")
         }
 
         binding.goToUserActivity.setOnClickListener {
