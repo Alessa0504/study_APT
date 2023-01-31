@@ -33,7 +33,7 @@ class RepositoryActivity : AppCompatActivity() {
 
         //可以读取
 //        name = intent.getStringExtra(RepositoryActivityBuilder.REQUIRED_NAME).toString()
-
+        //但使用APT后无需用intent.getStringExtra
         binding.nameView.text = name
         binding.ownerView.text = owner
         binding.urlView.text = url

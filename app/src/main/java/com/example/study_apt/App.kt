@@ -1,6 +1,7 @@
 package com.example.study_apt
 
 import android.app.Application
+import com.example.apt.runtime.ActivityBuilder
 
 /**
  * @Description:
@@ -10,5 +11,6 @@ import android.app.Application
 class App: Application() {
     override fun onCreate() {
         super.onCreate()
+        ActivityBuilder.INSTANCE.init(this)
     }
 }

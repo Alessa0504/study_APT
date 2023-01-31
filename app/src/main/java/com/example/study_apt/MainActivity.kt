@@ -12,11 +12,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.goToRepository.setOnClickListener {
-            startActivity(Intent(this, RepositoryActivity::class.java)
-                .putExtra(RepositoryActivityBuilder.REQUIRED_NAME, "Kotlin")
-                .putExtra(RepositoryActivityBuilder.REQUIRED_OWNER, "JetBrains")
-                .putExtra(RepositoryActivityBuilder.OPTIONAL_CREATE_AT, 10086L)
-                .putExtra(RepositoryActivityBuilder.OPTIONAL_URL, "https://www.jetbrains.com.cn/"))
+//            startActivity(Intent(this, RepositoryActivity::class.java)
+//                .putExtra(RepositoryActivityBuilder.REQUIRED_NAME, "Kotlin")
+//                  .putExtra(RepositoryActivityBuilder.REQUIRED_OWNER, "JetBrains")
+//                .putExtra(RepositoryActivityBuilder.OPTIONAL_CREATE_AT, 10086L)
+//                .putExtra(RepositoryActivityBuilder.OPTIONAL_URL, "https://www.jetbrains.com.cn/"))
+            RepositoryActivityBuilder.start(this, "Kotlin", "JetBrains", 10086L, "https://www.jetbrains.com.cn/")
         }
 
         binding.goToUserActivity.setOnClickListener {

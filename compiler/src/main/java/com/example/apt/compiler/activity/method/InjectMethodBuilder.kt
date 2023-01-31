@@ -22,7 +22,7 @@ class InjectMethodBuilder(private val activityClass: ActivityClass) {
             .addParameter(BUNDLE.java, "savedInstanceState")
             .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
             .returns(TypeName.VOID)
-            .beginControlFlow("if(instance instanceof \$T )", activityClass.typeElement)
+            .beginControlFlow("if(instance instanceof \$T)", activityClass.typeElement)
             .addStatement("\$T typedInstance = (\$T)instance", activityClass.typeElement, activityClass.typeElement)  //强转
             .addStatement("\$T extras = savedInstanceState == null ? typedInstance.getIntent().getExtras() : savedInstanceState", BUNDLE.java)
             .beginControlFlow("if(extras != null)")
