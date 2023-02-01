@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * @author zouji
- * @Description:
+ * @Description: 可选字段注解@optional
  * @date 2023/1/28
  */
 @Target(ElementType.FIELD)

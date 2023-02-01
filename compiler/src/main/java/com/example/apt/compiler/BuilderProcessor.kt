@@ -14,7 +14,7 @@ import com.sun.tools.javac.code.Symbol.VarSymbol
 import javax.annotation.processing.AbstractProcessor
 import javax.annotation.processing.ProcessingEnvironment
 import javax.annotation.processing.RoundEnvironment
-import javax.lang.model.SourceVersion
+import javax.annotation.processing.SupportedAnnotationTypes
 import javax.lang.model.element.Element
 import javax.lang.model.element.TypeElement
 
@@ -23,21 +23,22 @@ import javax.lang.model.element.TypeElement
  * @author zouji
  * @date 2023/1/28
  */
+@SupportedAnnotationTypes("com.example.apt.annotations.Builder", "com.example.apt.annotations.Required", "com.example.apt.annotations.Optional")  //也可以通过这种方式替代方法getSupportedAnnotationTypes()
 class BuilderProcessor : AbstractProcessor() {
     // 能处理哪些注解
     private val supportedAnnotations =
         setOf(Builder::class.java, Required::class.java, Optional::class.java)
 
     /**
-     * 支持版本：jdk8
+     * 声明注解处理器支持的java版本，如jdk8，jdk11等
      */
-    override fun getSupportedSourceVersion() = SourceVersion.RELEASE_8
+    override fun getSupportedSourceVersion() = processingEnv.sourceVersion   //processingEnv.sourceVersion:获取最新的java版本
 
     /**
-     * 支持注解的类型
+     * 声明注解处理器要识别的注解有哪些
      */
-    override fun getSupportedAnnotationTypes() = supportedAnnotations.map { it.canonicalName }
-        .toSet()  //把class转为name(String类型)，最后转为Set<String>()
+//    override fun getSupportedAnnotationTypes() = supportedAnnotations.map { it.canonicalName }
+//        .toSet()  //把class转为name(String类型)，最后转为Set<String>()
 
     /**
      * 初始化
@@ -48,6 +49,7 @@ class BuilderProcessor : AbstractProcessor() {
         AptContext.init(processingEnv)
     }
 
+    // 注: 有几个模块依赖了注解处理器 kapt project(':compiler')，就会执行几次，所以每次process的执行都是处理当前模块下的注解
     override fun process(annotations: MutableSet<out TypeElement>, env: RoundEnvironment): Boolean {
         // 定义map，把注解标注的类和字段都存入
         val activityClasses = HashMap<Element, ActivityClass>()

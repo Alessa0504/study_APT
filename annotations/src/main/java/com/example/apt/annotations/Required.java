@@ -7,10 +7,11 @@ import java.lang.annotation.Target;
 
 /**
  * @author zouji
- * @Description:
+ * @Description: 必要字段注解@Required
  * @date 2023/1/28
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.CLASS)
 public @interface Required  {
+
 }
